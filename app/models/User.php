@@ -11,9 +11,10 @@ public function register($user) {
    
     try {
         // Prepare and execute the insertion query
-        $result = $this->conn->prepare("INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, email, role) VALUES (?, ?, ?, ?)");
+        $result = $this->conn->prepare("INSERT INTO users (role, name , email , password ) VALUES (?, ?, ?, ?)");
         $result->execute($user);
         return $this->conn->lastInsertId();
+        // return "good";
         
        
     } catch (PDOException $e) {
@@ -24,11 +25,11 @@ public function register($user) {
 public function login($userData){
     
     try {
-        $result = $this->conn->prepare("SELECT * FROM utilisateurs WHERE email=?");
+        $result = $this->conn->prepare("SELECT * FROM users WHERE email=?");
         $result->execute([$userData[0]]);
         $user = $result->fetch(PDO::FETCH_ASSOC);
 
-        if($user && password_verify($userData[1], $user["mot_de_passe"])){
+        if($user && password_verify($userData[1], $user["password"])){
            
 
            return  $user ;

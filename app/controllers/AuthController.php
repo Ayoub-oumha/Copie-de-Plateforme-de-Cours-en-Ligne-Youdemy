@@ -9,7 +9,9 @@ class AuthController extends BaseController {
 
       
    }
-
+   public function sayhello(){
+    $this->render('auth/sayhello');
+   }
    public function showRegister() {
       
     $this->render('auth/register');
@@ -20,11 +22,12 @@ class AuthController extends BaseController {
    }
    
    public function handleRegister(){
-
+  
+  
       
       if ($_SERVER["REQUEST_METHOD"] == "POST"){
          if (isset($_POST['signup'])) {
-            echo "<pre>";
+            // echo "<pre>";
          //   var_dump($_POST);die();
 
              $full_name = $_POST['full_name'];
@@ -33,25 +36,25 @@ class AuthController extends BaseController {
              $password = $_POST['password'];
              $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-             $user = [$full_name,$hashed_password,$email,$role];
+             $user = [$role ,$full_name,$email , $hashed_password];
 
-             
+            //  echo "hl" ;
+            // var_dump($user) ;
 
              $lastInsertId = $this->UserModel->register($user);
 
-             
+          
             
                  $_SESSION['user_loged_in_id'] = $lastInsertId ;
                  $_SESSION['user_loged_in_role'] = $role;
- 
-                 if ($lastInsertId && $role == 1) {
+           
+                 if ($lastInsertId && $role == "enseignant") {
                      header('Location: admin/dashboard');
-                 } else if ($lastInsertId && $role == 2) {
+                 } else if ($lastInsertId && $role == "etudiant") {
                      header('Location: client/dashboard');
-                 } else if ($lastInsertId && $role == 3) {
-                     header('Location: freelancer/dashboard');
-                 }                    
-                 
+                 }                   
+                
+            
                  exit;
              
          }
@@ -65,18 +68,19 @@ class AuthController extends BaseController {
               $email = $_POST['email'];
               $password = $_POST['password'];
               $userData = [$email,$password];
+              
               $user = $this->UserModel->login($userData);
               $role = $user['role'] ; 
             // var_dump($user);die();
-              $_SESSION['user_loged_in_id'] = $user["id_utilisateur"];
+              $_SESSION['user_loged_in_id'] = $user["id"];
               $_SESSION['user_loged_in_role'] = $role;
-              $_SESSION['user_loged_in_nome'] = $user['nom_utilisateur'];
+              $_SESSION['user_loged_in_nome'] = $user['name'];
   
-              if ($user && $role == 1) {
+              if ($user && $role == "administrateur") {
                   header('Location: /admin/dashboard');
-              } else if ($user && $role == 2) {
+              } else if ($user && $role == "etudiant") {
                   header('Location: Client/dashboard.php');
-              } else if ($user && $role == 3) {
+              } else if ($user && $role == "enseignant") {
                   header('Location: Freelancer/dashboard.php');
               } 
              

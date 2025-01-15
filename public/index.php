@@ -25,8 +25,9 @@ Route::post('/register', [AuthController::class, 'handleRegister']);
 Route::get('/login', [AuthController::class, 'showleLogin']);
 Route::post('/login', [AuthController::class, 'handleLogin']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/sayhello', [AuthController::class, 'sayhello']);
 
-// admin routers
+// admin routers 
 
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/users', [AdminController::class, 'handleUsers']);

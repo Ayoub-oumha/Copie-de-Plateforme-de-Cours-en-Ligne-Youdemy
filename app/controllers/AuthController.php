@@ -9,8 +9,11 @@ class AuthController extends BaseController {
 
       
    }
-   public function sayhello(){
-    $this->render('auth/sayhello');
+  
+   public function showRegisterAdmin(){
+    // $this->render('auth/sayhello');
+    $this->render('auth/registeradmin');
+    // echo "hello" ;
    }
    public function showRegister() {
       
@@ -20,7 +23,33 @@ class AuthController extends BaseController {
       
     $this->render('auth/login');
    }
-   
+   public function registerbyadmin(){
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        if (isset($_POST['signupAdmin'])) {
+            $full_name = $_POST['full_name'];
+            $email = $_POST['email'];
+            $role = 'administrateur';
+            $password = $_POST['password'];
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            $user = [$role ,$full_name,$email , $hashed_password];
+            $lastInsertId = $this->UserModel->register($user);
+
+          
+            
+            $_SESSION['user_loged_in_id'] = $lastInsertId ;
+            $_SESSION['user_loged_in_role'] = $role;
+      
+            if ($lastInsertId && $role == "enseignant") {
+                header('Location: admin/dashboard');
+            } else if ($lastInsertId && $role == "etudiant") {
+                header('Location: client/dashboard');
+            }                   
+           
+       
+            exit;
+        }}
+   }
    public function handleRegister(){
   
   

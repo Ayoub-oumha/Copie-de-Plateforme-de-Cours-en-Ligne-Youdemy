@@ -9,7 +9,7 @@ class AdminController extends BaseController {
   
         
      }
-
+  
    public function index() {
       
       if(!isset($_SESSION['user_loged_in_id'])){

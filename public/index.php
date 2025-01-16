@@ -9,6 +9,9 @@ require_once '../core/Route.php';
 require_once '../app/controllers/HomeController.php';
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/AdminController.php';
+
+require_once '../app/controllers/coursesController.php';
+
 require_once '../app/config/db.php';
 
 
@@ -22,10 +25,13 @@ Route::setRouter($router);
 // auth routes 
 Route::get('/register', [AuthController::class, 'showRegister']);
 Route::post('/register', [AuthController::class, 'handleRegister']);
+
 Route::get('/login', [AuthController::class, 'showleLogin']);
 Route::post('/login', [AuthController::class, 'handleLogin']);
 Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/sayhello', [AuthController::class, 'sayhello']);
+Route::get('/sayhello', [AuthController::class, 'sayhello']);
+Route::get('/registeradmin', [AuthController::class, 'showRegisterAdmin']);
+Route::post('/registerbyadmin', [AuthController::class, 'registerbyadmin']);
 
 // admin routers 
 
@@ -35,8 +41,9 @@ Route::get('/admin/categories', [AdminController::class, 'categories']);
 Route::get('/admin/testimonials', [AdminController::class, 'testimonials']);
 Route::get('/admin/projects', [AdminController::class, 'projects']);
 
-
-
+//home 
+Route::get('/home', [ HomeController::class, 'gopagehomevisiteur']);
+Route::get('/home', [ CoursController::class, 'getAllCourses']);
 // end admin routes 
 
 // client Routes 

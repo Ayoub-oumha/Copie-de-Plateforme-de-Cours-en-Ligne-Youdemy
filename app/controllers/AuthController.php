@@ -6,8 +6,7 @@ class AuthController extends BaseController {
    public function __construct(){
 
       $this->UserModel = new User();
-
-      
+  
    }
   
    public function showRegisterAdmin(){
@@ -80,7 +79,7 @@ class AuthController extends BaseController {
                  if ($lastInsertId && $role == "enseignant") {
                      header('Location: admin/dashboard');
                  } else if ($lastInsertId && $role == "etudiant") {
-                     header('Location: client/dashboard');
+                     header('Location: teacher/index');
                  }                   
                 
             

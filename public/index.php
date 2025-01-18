@@ -12,6 +12,8 @@ require_once '../app/controllers/AdminController.php';
 
 require_once '../app/controllers/coursesController.php';
 
+require_once '../app/controllers/enseignantController.php';
+
 require_once '../app/config/db.php';
 
 
@@ -38,12 +40,20 @@ Route::post('/registerbyadmin', [AuthController::class, 'registerbyadmin']);
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/admin/users', [AdminController::class, 'handleUsers']);
 Route::get('/admin/categories', [AdminController::class, 'categories']);
-Route::get('/admin/testimonials', [AdminController::class, 'testimonials']);
+// Route::get('/admin/testimonials', [AdminController::class, 'testimonials']);
 Route::get('/admin/projects', [AdminController::class, 'projects']);
+// dash teacher
+Route::get('/teacher/index', [AdminController::class, 'indexTeacher']);
+Route::get('/teacher/myCourses', [ AdminController::class, 'myCourses']);
+Route::get('/teacher/statistics', [ AdminController::class, 'statisticTeacher']);
+Route::get('/teacher/create-course', [ AdminController::class, 'createCourse']);
+Route::get('/teacher/create-course', [ EnseignantController::class, 'getAllCategroury']);
+Route::post('/teachers/courses/create', [ EnseignantController::class, 'createCourse']);
 
 //home 
 Route::get('/home', [ HomeController::class, 'gopagehomevisiteur']);
 Route::get('/home', [ CoursController::class, 'getAllCourses']);
+
 // end admin routes 
 
 // client Routes 

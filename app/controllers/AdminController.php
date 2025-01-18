@@ -32,7 +32,18 @@ class AdminController extends BaseController {
   
     $this->renderDashboard('admin/projects');
    }
-
+   public function indexTeacher(){
+    $this->renderDashboard('teacher/index');
+   }
+   public function createCourse(){
+      $this->renderDashboard('teacher/create-course');
+     }
+   public function myCourses(){
+      $this->renderDashboard('teacher/myCourses');
+     }
+     public function statisticTeacher(){
+      $this->renderDashboard('teacher/statistics');
+     }
    public function handleUsers(){
   
 
